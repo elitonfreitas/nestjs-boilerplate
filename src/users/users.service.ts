@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,7 +26,7 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     return this.userModel
-      .findByIdAndUpdate({ _id: id }, updateUserDto, { new: true })
+      .findOneAndUpdate({ _id: id }, updateUserDto, { new: true })
       .lean();
   }
 

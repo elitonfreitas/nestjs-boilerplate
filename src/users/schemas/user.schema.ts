@@ -56,3 +56,7 @@ UserSchema.pre('findOne', function () {
     this.populate('profiles', '-_id name rule');
   }
 });
+
+UserSchema.pre('findOneAndUpdate', function () {
+  this.populate('profiles', '-_id name rule');
+});
