@@ -8,6 +8,7 @@ async function bootstrap() {
 
   const httpHostAdapter = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpHostAdapter));
+  app.setGlobalPrefix('api');
   app.use(morgan('short'));
 
   await app.listen(3000);

@@ -12,13 +12,18 @@ export class Profile {
     required: true,
     unique: true,
   })
-  rule: string;
+  name: string;
 
   @Prop({
     required: true,
     unique: true,
   })
-  name: string;
+  rule: string;
+
+  @Prop({
+    default: false,
+  })
+  admin: boolean;
 
   @Prop({
     type: Object,
