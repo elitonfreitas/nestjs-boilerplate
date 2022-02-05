@@ -7,11 +7,8 @@ import * as dayjs from 'dayjs';
 export type UserDocument = User & Document;
 
 const { ObjectId } = MongooseSchema.Types;
-const { USER_CODE_LENGTH, ACL_DEFAULT_PROFILE, JWT_REFRESH_EXPIRETION } =
-  process.env;
-const expireAt = JWT_REFRESH_EXPIRETION
-  ? JWT_REFRESH_EXPIRETION.split(';')
-  : [1, 'd'];
+const { USER_CODE_LENGTH, ACL_DEFAULT_PROFILE, JWT_REFRESH_EXPIRETION } = process.env;
+const expireAt = JWT_REFRESH_EXPIRETION ? JWT_REFRESH_EXPIRETION.split(';') : [1, 'd'];
 
 @Schema({
   timestamps: true,

@@ -1,10 +1,4 @@
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 
 @Catch()
@@ -32,9 +26,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const errorStackString = exception.toString();
     const errors400 = ['ValidationError'];
 
-    const is400 = errors400.find((errorString) =>
-      errorStackString.includes(errorString),
-    );
+    const is400 = errors400.find((errorString) => errorStackString.includes(errorString));
 
     if (is400) {
       return HttpStatus.PRECONDITION_FAILED;
