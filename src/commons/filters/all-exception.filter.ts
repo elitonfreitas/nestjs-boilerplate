@@ -15,6 +15,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
     if (exception.toString().includes('email_1 dup key')) {
       return ['Email already exists'];
     }
+    if (exception.toString().includes('username_1 dup key')) {
+      return ['Username already exists'];
+    }
 
     const { errors } = exception;
 
@@ -27,7 +30,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
   getStatusCode(exception: any): number {
     const errorStackString = exception.toString();
-    const errors400 = ['ValidationError', 'email_1 dup key'];
+    const errors400 = ['ValidationError'];
 
     const is400 = errors400.find((errorString) =>
       errorStackString.includes(errorString),

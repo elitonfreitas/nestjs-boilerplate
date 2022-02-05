@@ -2,11 +2,16 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { Profile } from './profile.schema';
+import * as dayjs from 'dayjs';
 
 export type UserDocument = User & Document;
 
 const { ObjectId } = MongooseSchema.Types;
-const { USER_CODE_LENGTH, ACL_DEFAULT_PROFILE } = process.env;
+const { USER_CODE_LENGTH, ACL_DEFAULT_PROFILE, JWT_REFRESH_EXPIRETION } =
+  process.env;
+const expireAt = JWT_REFRESH_EXPIRETION
+  ? JWT_REFRESH_EXPIRETION.split(';')
+  : [1, 'd'];
 
 @Schema({
   timestamps: true,
@@ -18,15 +23,11 @@ export class Session {
   id: string;
 
   @Prop({
-    default: Date.now,
+    default: dayjs()
+      .add(expireAt[0] as number, expireAt[1] as string)
+      .toDate(),
   })
   expireAt: Date;
-  // expireAt: {
-  //   type: Date,
-  //   default: DataUtils.moment()
-  //     .add(...expireAt)
-  //     .toISOString(),
-  // }
 }
 
 @Schema({
